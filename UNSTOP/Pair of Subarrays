@@ -1,2 +1,46 @@
+import java.util.*;
 
-Pair of Subarrays
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+        long[] a = new long[n];
+
+        for (int i = 0; i < n; i++) {
+            a[i] = sc.nextLong();
+        }
+
+        long answer = 0;
+
+        // Frequency of sums of subarrays completely to the left
+        HashMap<Long, Integer> freq = new HashMap<>();
+
+        // rightStart = starting index of the second subarray
+        for (int rightStart = 0; rightStart < n; rightStart++) {
+
+            // Add all subarrays ending at rightStart - 1
+            // These are the only new left-side subarrays.
+            long sum = 0;
+
+            for (int left = rightStart - 1; left >= 0; left--) {
+                sum += a[left];
+                freq.put(sum, freq.getOrDefault(sum, 0) + 1);
+            }
+
+            // Generate every subarray starting at rightStart
+            sum = 0;
+
+            for (int right = rightStart; right < n; right++) {
+                sum += a[right];
+
+                // Count left subarrays having the same sum
+                answer += freq.getOrDefault(sum, 0);
+            }
+        }
+
+        System.out.println(answer);
+
+        sc.close();
+    }
+}
