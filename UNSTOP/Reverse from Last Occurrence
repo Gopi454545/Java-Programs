@@ -1,1 +1,24 @@
 
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        String s = sc.next();
+        char ch = sc.next().charAt(0);
+
+        int index = s.lastIndexOf(ch);
+
+        if (index != -1) {
+            String result = s.substring(0, index)
+                    + new StringBuilder(s.substring(index)).reverse();
+
+            System.out.println(result);
+        } else {
+            System.out.println(s);
+        }
+
+        sc.close();
+    }
+}
